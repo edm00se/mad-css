@@ -1,473 +1,467 @@
-/* Wrapper applies shadow to the masked ticket shape */ .ticket_wrapper {
-	max-width: 800px;
-	@media (max-width: 800px) {
-		padding: 20px;
-	}
-	margin: 0 auto;
-	margin-top: -150px;
-	z-index: 1;
-	position: relative;
-	filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.8))
-		drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
-	container-type: inline-size;
-	container-name: ticket;
+/* Wrapper applies shadow to the masked ticket shape */
+.ticket_wrapper {
+  max-width: 800px;
+  @media (max-width: 800px) {
+    padding: 20px;
+  }
+  margin: 0 auto;
+  margin-top: -150px;
+  z-index: 1;
+  position: relative;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+  container-type: inline-size;
+  container-name: ticket;
 }
 
 @media (max-width: 600px) {
-	.ticket_wrapper {
-		margin-inline: 15px;
-	}
+  .ticket_wrapper {
+    margin-inline: 15px;
+  }
 }
 @media (max-width: 500px) {
-	.ticket_wrapper {
-		margin-inline: 15px;
-		margin-top: -100px;
-		margin-bottom: -60px;
-	}
+  .ticket_wrapper {
+    margin-inline: 15px;
+    margin-top: -100px;
+    margin-bottom: -60px;
+  }
 }
 
 .ticket {
-	--padding: 20px;
-	--notch-size: 15px;
-	--stub-width: 100px;
-	--dash-width: 2px;
-	--dash-length: 6px;
-	--dash-gap: 6px;
+  --padding: 20px;
+  --notch-size: 15px;
+  --stub-width: 100px;
+  --dash-width: 2px;
+  --dash-length: 6px;
+  --dash-gap: 6px;
 
-	display: grid;
-	grid-template-columns: 1fr auto auto;
-	color: var(--black);
-	/* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement. Not yet added to biome https://github.com/biomejs/biome/issues/7625 */
-	corner-shape: scoop;
-	border-radius: 15px;
-	overflow: hidden;
-	position: relative;
-	mask-image:
-		radial-gradient(
-			circle var(--notch-size) at calc(100% - var(--stub-width)) 0,
-			black 100%,
-			transparent 100%
-		),
-		/* Bottom notch - solid circle to cut out */
-		radial-gradient(
-			circle var(--notch-size) at calc(100% - var(--stub-width)) 100%,
-			black 100%,
-			transparent 100%
-		),
-		/* Dashed tear line - opaque dashes get cut out */
-		repeating-linear-gradient(
-			to bottom,
-			black 0,
-			black var(--dash-length),
-			transparent var(--dash-length),
-			transparent calc(var(--dash-length) + var(--dash-gap))
-		),
-		/* Solid base layer */
-		linear-gradient(black, black);
-	mask-size:
-		100% 100%,
-		100% 100%,
-		var(--dash-width) calc(100% - var(--notch-size) * 2),
-		100% 100%;
-	mask-position:
-		0 0,
-		0 0,
-		calc(100% - var(--stub-width) + var(--dash-width)) var(--notch-size),
-		0 0;
-	mask-repeat: no-repeat;
-	mask-composite: exclude, exclude, exclude;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  color: var(--black);
+  /* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement. Not yet added to biome https://github.com/biomejs/biome/issues/7625 */
+  corner-shape: scoop;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  mask-image:
+    radial-gradient(
+      circle var(--notch-size) at calc(100% - var(--stub-width)) 0,
+      black 100%,
+      transparent 100%
+    ),
+    /* Bottom notch - solid circle to cut out */
+    radial-gradient(
+        circle var(--notch-size) at calc(100% - var(--stub-width)) 100%,
+        black 100%,
+        transparent 100%
+      ),
+    /* Dashed tear line - opaque dashes get cut out */
+    repeating-linear-gradient(
+        to bottom,
+        black 0,
+        black var(--dash-length),
+        transparent var(--dash-length),
+        transparent calc(var(--dash-length) + var(--dash-gap))
+      ),
+    /* Solid base layer */ linear-gradient(black, black);
+  mask-size:
+    100% 100%,
+    100% 100%,
+    var(--dash-width) calc(100% - var(--notch-size) * 2),
+    100% 100%;
+  mask-position:
+    0 0,
+    0 0,
+    calc(100% - var(--stub-width) + var(--dash-width)) var(--notch-size),
+    0 0;
+  mask-repeat: no-repeat;
+  mask-composite: exclude, exclude, exclude;
 }
 
 /* Text Selection color */
 ::selection {
-	background: var(--orange);
-	color: var(--white);
+  background: var(--orange);
+  color: var(--white);
 }
 
 .ticket_body {
-	background: var(--beige);
-	display: grid;
-	grid-template-columns: auto auto auto;
-	align-items: center;
-	align-content: center;
-	h2 {
-		grid-column: 1 / -1;
-		text-transform: uppercase;
-		font-size: 5.6cqi;
-		@container ticket (max-width: 700px) {
-			font-size: 5cqi;
-		}
-		color: var(--orange);
-		padding: var(--padding);
-		line-height: 1;
-		text-box: trim-both cap alphabetic;
-	}
-	p.battle {
-		text-box: trim-both cap alphabetic;
-		grid-column: 1 / -1;
-		border-block: 1.5px solid var(--black);
-		text-transform: uppercase;
-		font-size: 4.5cqi;
-		@container ticket (max-width: 700px) {
-			font-size: 4cqi;
-		}
-		font-family: var(--font-block);
-		padding: var(--padding);
-		line-height: 1;
-	}
+  background: var(--beige);
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  align-content: center;
+  h2 {
+    grid-column: 1 / -1;
+    text-transform: uppercase;
+    font-size: 5.6cqi;
+    @container ticket (max-width: 700px) {
+      font-size: 5cqi;
+    }
+    color: var(--orange);
+    padding: var(--padding);
+    line-height: 1;
+    text-box: trim-both cap alphabetic;
+  }
+  p.battle {
+    text-box: trim-both cap alphabetic;
+    grid-column: 1 / -1;
+    border-block: 1.5px solid var(--black);
+    text-transform: uppercase;
+    font-size: 4.5cqi;
+    @container ticket (max-width: 700px) {
+      font-size: 4cqi;
+    }
+    font-family: var(--font-block);
+    padding: var(--padding);
+    line-height: 1;
+  }
 }
 
 .presented {
-	text-align: center;
-	padding-block: 10px;
-	display: grid;
-	gap: 5px;
-	& + .presented {
-		border-left: 1.5px solid var(--black);
-	}
-	p {
-		font-weight: 900;
-		font-size: 10px;
-		text-transform: uppercase;
-	}
-	img {
-		height: 70px;
-		max-width: 200px;
-		object-fit: contain;
-		margin: 0 auto;
-		@container ticket (max-width: 700px) {
-			height: 40px;
-			.youtube & {
-				height: 30px;
-			}
-		}
-	}
+  text-align: center;
+  padding-block: 10px;
+  display: grid;
+  gap: 5px;
+  & + .presented {
+    border-left: 1.5px solid var(--black);
+  }
+  p {
+    font-weight: 900;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  img {
+    height: 70px;
+    max-width: 200px;
+    object-fit: contain;
+    margin: 0 auto;
+    @container ticket (max-width: 700px) {
+      height: 40px;
+      .youtube & {
+        height: 30px;
+      }
+    }
+  }
 }
 
 .drink-tickets-wrapper {
-	width: 100%;
-	overflow-x: clip;
-	margin-bottom: 30px;
+  width: 100%;
+  overflow-x: clip;
+  margin-bottom: 30px;
 }
 
 .drink-tickets {
-	/* transform: translateY(-404%); */
-	display: flex;
-	--radius: 15px;
-	justify-content: center;
-	flex-wrap: nowrap;
-	/* padding: 24px 20px; */
-	--gap: 2px;
-	gap: var(--gap);
-	rotate: -2deg;
-	margin-top: 20px;
-	margin-bottom: -20px;
-	filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.8));
-	z-index: 20;
-	width: 100%;
-	overflow: hidden;
-	position: relative;
+  /* transform: translateY(-404%); */
+  display: flex;
+  --radius: 15px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  /* padding: 24px 20px; */
+  --gap: 2px;
+  gap: var(--gap);
+  rotate: -2deg;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.8));
+  z-index: 20;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 .drink-ticket {
-	--bg: var(--beige);
-	--border-color: var(--orange);
-	position: relative;
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-	width: 200px;
-	min-width: 200px;
-	aspect-ratio: 2 / 1;
-	text-decoration: none;
-	color: var(--black);
-	background: var(--bg);
-	/* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement. Not yet added to biome https://github.com/biomejs/biome/issues/7625 */
-	corner-shape: scoop;
-	border-radius: var(--radius);
-	&.empty {
-		opacity: 1;
-	}
-	& .inner {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: 8px 4px;
-		border: 2px solid var(--border-color);
-		margin: 8px 0;
-		gap: 2px;
-		/* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement */
-		corner-shape: scoop;
-		border-radius: var(--radius);
-	}
-	& .label {
-		font-family: var(--font-block);
-		font-size: 1.1rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		line-height: 1;
-		text-align: center;
-	}
-	& .date {
-		font-family: var(--font-block);
-		font-size: 0.65rem;
-		letter-spacing: 0.08em;
-		display: flex;
-		align-items: center;
-		gap: 4px;
-		svg {
-			color: #ff0000;
-		}
-	}
-	& .watch {
-		font-family: var(--font-block);
-		font-size: 0.55rem;
-		letter-spacing: 0.08em;
-		color: var(--orange);
-		margin-top: 1px;
-	}
-	& .side {
-		writing-mode: vertical-lr;
-		font-family: var(--font-sans);
-		font-size: 7px;
-		font-weight: 800;
-		text-transform: uppercase;
-		letter-spacing: 0.15em;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 4px 5px;
-		white-space: nowrap;
-		color: rgba(0, 0, 0, 0.6);
-		&.left {
-			rotate: 180deg;
-		}
-	}
-	&::after,
-	&::before {
-		content: "";
-		position: absolute;
-		right: calc(var(--gap) * -1);
-		height: calc(100% - var(--radius) * 2);
-		top: calc(var(--radius));
-		width: var(--gap);
-		background: repeating-linear-gradient(
-			to bottom,
-			transparent 0px,
-			transparent 5px,
-			var(--beige) 5px,
-			var(--beige) 6.5px
-		);
-	}
-	&::before {
-		left: calc(var(--gap) * -1);
-	}
+  --bg: var(--beige);
+  --border-color: var(--orange);
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: 200px;
+  min-width: 200px;
+  aspect-ratio: 2 / 1;
+  text-decoration: none;
+  color: var(--black);
+  background: var(--bg);
+  /* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement. Not yet added to biome https://github.com/biomejs/biome/issues/7625 */
+  corner-shape: scoop;
+  border-radius: var(--radius);
+  &.empty {
+    opacity: 1;
+  }
+  & .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    border: 2px solid var(--border-color);
+    margin: 8px 0;
+    gap: 2px;
+    /* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement */
+    corner-shape: scoop;
+    border-radius: var(--radius);
+  }
+  & .label {
+    font-family: var(--font-block);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    text-align: center;
+  }
+  & .date {
+    font-family: var(--font-block);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    svg {
+      color: #ff0000;
+    }
+  }
+  & .watch {
+    font-family: var(--font-block);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    margin-top: 1px;
+  }
+  & .side {
+    writing-mode: vertical-lr;
+    font-family: var(--font-sans);
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 5px;
+    white-space: nowrap;
+    color: rgba(0, 0, 0, 0.6);
+    &.left {
+      rotate: 180deg;
+    }
+  }
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    right: calc(var(--gap) * -1);
+    height: calc(100% - var(--radius) * 2);
+    top: calc(var(--radius));
+    width: var(--gap);
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 5px,
+      var(--beige) 5px,
+      var(--beige) 6.5px
+    );
+  }
+  &::before {
+    left: calc(var(--gap) * -1);
+  }
 }
 
 @media (max-width: 1000px) {
-	.drink-ticket {
-		zoom: 0.8;
-		& .label {
-			font-size: 2vw;
-		}
-	}
+  .drink-ticket {
+    zoom: 0.8;
+    & .label {
+      font-size: 2vw;
+    }
+  }
 }
 @media (max-width: 800px) {
-	.drink-ticket {
-		zoom: 0.5;
-	}
+  .drink-ticket {
+    zoom: 0.5;
+  }
 }
 
 /* biome-ignore lint/correctness/noUnknownProperty: Progressive enhancement - this is the feature we're detecting */
 @supports not (corner-shape: scoop) {
-	.drink-ticket {
-		border-radius: 0;
-		mask-image:
-			radial-gradient(circle var(--radius) at 0 0, transparent 98%, black),
-			radial-gradient(circle var(--radius) at 100% 0, transparent 98%, black),
-			radial-gradient(circle var(--radius) at 0 100%, transparent 98%, black),
-			radial-gradient(circle var(--radius) at 100% 100%, transparent 98%, black),
-			linear-gradient(black, black);
-		mask-composite: exclude, exclude, exclude, exclude;
-		& .inner {
-			border-radius: 0;
-			mask-image:
-				radial-gradient(circle var(--radius) at 0 0, transparent 98%, black),
-				radial-gradient(circle var(--radius) at 100% 0, transparent 98%, black),
-				radial-gradient(circle var(--radius) at 0 100%, transparent 98%, black),
-				radial-gradient(
-					circle var(--radius) at 100% 100%,
-					transparent 98%,
-					black
-				),
-				linear-gradient(black, black);
-			mask-composite: exclude, exclude, exclude, exclude;
-		}
-	}
+  .drink-ticket {
+    border-radius: 0;
+    mask-image:
+      radial-gradient(circle var(--radius) at 0 0, transparent 98%, black),
+      radial-gradient(circle var(--radius) at 100% 0, transparent 98%, black),
+      radial-gradient(circle var(--radius) at 0 100%, transparent 98%, black),
+      radial-gradient(circle var(--radius) at 100% 100%, transparent 98%, black),
+      linear-gradient(black, black);
+    mask-composite: exclude, exclude, exclude, exclude;
+    & .inner {
+      border-radius: 0;
+      mask-image:
+        radial-gradient(circle var(--radius) at 0 0, transparent 98%, black),
+        radial-gradient(circle var(--radius) at 100% 0, transparent 98%, black),
+        radial-gradient(circle var(--radius) at 0 100%, transparent 98%, black),
+        radial-gradient(circle var(--radius) at 100% 100%, transparent 98%, black),
+        linear-gradient(black, black);
+      mask-composite: exclude, exclude, exclude, exclude;
+    }
+  }
 }
 
 .ticket_tear {
-	background: var(--white);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	writing-mode: sideways-lr;
-	text-align: center;
-	text-orientation: sideways-right;
-	border-block: 1.5px solid var(--black);
-	padding-block: 15px;
-	p {
-		font-family: var(--font-block);
-		font-size: 4.5cqb;
-		line-height: 1;
-		text-box: trim-both cap alphabetic;
-	}
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: sideways-lr;
+  text-align: center;
+  text-orientation: sideways-right;
+  border-block: 1.5px solid var(--black);
+  padding-block: 15px;
+  p {
+    font-family: var(--font-block);
+    font-size: 4.5cqb;
+    line-height: 1;
+    text-box: trim-both cap alphabetic;
+  }
 }
 
 .ticket_stub {
-	background: var(--beige);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 20px;
+  background: var(--beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 .barcode {
-	height: 100%;
-	width: 60px;
-	--white: transparent;
-	--deg: 0deg;
-	background: repeating-linear-gradient(
-		var(--deg),
-		var(--black) 0px,
-		var(--black) 2px,
-		var(--white) 2px,
-		var(--white) 4px,
-		var(--black) 4px,
-		var(--black) 5px,
-		var(--white) 5px,
-		var(--white) 8px,
-		var(--black) 8px,
-		var(--black) 11px,
-		var(--white) 11px,
-		var(--white) 13px,
-		var(--black) 13px,
-		var(--black) 14px,
-		var(--white) 14px,
-		var(--white) 16px,
-		var(--black) 16px,
-		var(--black) 19px,
-		var(--white) 19px,
-		var(--white) 20px,
-		var(--black) 20px,
-		var(--black) 22px,
-		var(--white) 22px,
-		var(--white) 26px,
-		var(--black) 26px,
-		var(--black) 28px,
-		var(--white) 28px,
-		var(--white) 29px,
-		var(--black) 29px,
-		var(--black) 32px,
-		var(--white) 32px,
-		var(--white) 34px,
-		var(--black) 34px,
-		var(--black) 35px,
-		var(--white) 35px,
-		var(--white) 38px,
-		var(--black) 38px,
-		var(--black) 40px
-	);
+  height: 100%;
+  width: 60px;
+  --white: transparent;
+  --deg: 0deg;
+  background: repeating-linear-gradient(
+    var(--deg),
+    var(--black) 0px,
+    var(--black) 2px,
+    var(--white) 2px,
+    var(--white) 4px,
+    var(--black) 4px,
+    var(--black) 5px,
+    var(--white) 5px,
+    var(--white) 8px,
+    var(--black) 8px,
+    var(--black) 11px,
+    var(--white) 11px,
+    var(--white) 13px,
+    var(--black) 13px,
+    var(--black) 14px,
+    var(--white) 14px,
+    var(--white) 16px,
+    var(--black) 16px,
+    var(--black) 19px,
+    var(--white) 19px,
+    var(--white) 20px,
+    var(--black) 20px,
+    var(--black) 22px,
+    var(--white) 22px,
+    var(--white) 26px,
+    var(--black) 26px,
+    var(--black) 28px,
+    var(--white) 28px,
+    var(--white) 29px,
+    var(--black) 29px,
+    var(--black) 32px,
+    var(--white) 32px,
+    var(--white) 34px,
+    var(--black) 34px,
+    var(--black) 35px,
+    var(--white) 35px,
+    var(--white) 38px,
+    var(--black) 38px,
+    var(--black) 40px
+  );
 }
 
 /* Mobile responsive styles */
 @container ticket (max-width: 500px) {
-	.ticket {
-		--stub-height: 80px;
-		/* Stack vertically on mobile */
-		grid-template-columns: 1fr;
-		grid-template-rows: auto auto auto;
-		/* Horizontal cutouts for vertical layout */
-		/* Left notch */
-		mask-image:
-			radial-gradient(
-				circle var(--notch-size) at 0 calc(100% - var(--stub-height)),
-				black 100%,
-				transparent 100%
-			),
-			/* Right notch */
-			radial-gradient(
-				circle var(--notch-size) at 100% calc(100% - var(--stub-height)),
-				black 100%,
-				transparent 100%
-			),
-			/* Horizontal dashed tear line */
-			repeating-linear-gradient(
-				to right,
-				black 0,
-				black var(--dash-length),
-				transparent var(--dash-length),
-				transparent calc(var(--dash-length) + var(--dash-gap))
-			),
-			/* Solid base layer */
-			linear-gradient(black, black);
-		mask-size:
-			100% 100%,
-			100% 100%,
-			100% var(--dash-width),
-			100% 100%;
-		mask-position:
-			0 0,
-			0 0,
-			0 calc(100% - 50px),
-			0 0;
-		mask-repeat: no-repeat;
-		mask-composite: exclude, exclude, exclude;
-	}
+  .ticket {
+    --stub-height: 80px;
+    /* Stack vertically on mobile */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    /* Horizontal cutouts for vertical layout */
+    /* Left notch */
+    mask-image:
+      radial-gradient(
+        circle var(--notch-size) at 0 calc(100% - var(--stub-height)),
+        black 100%,
+        transparent 100%
+      ),
+      /* Right notch */
+        radial-gradient(
+          circle var(--notch-size) at 100% calc(100% - var(--stub-height)),
+          black 100%,
+          transparent 100%
+        ),
+      /* Horizontal dashed tear line */
+        repeating-linear-gradient(
+          to right,
+          black 0,
+          black var(--dash-length),
+          transparent var(--dash-length),
+          transparent calc(var(--dash-length) + var(--dash-gap))
+        ),
+      /* Solid base layer */ linear-gradient(black, black);
+    mask-size:
+      100% 100%,
+      100% 100%,
+      100% var(--dash-width),
+      100% 100%;
+    mask-position:
+      0 0,
+      0 0,
+      0 calc(100% - 50px),
+      0 0;
+    mask-repeat: no-repeat;
+    mask-composite: exclude, exclude, exclude;
+  }
 
-	.ticket_body {
-		grid-template-columns: 1fr 1fr;
-		order: 1;
-		h2 {
-			font-size: 10cqi;
-			text-align: center;
-		}
-		p.battle {
-			text-align: center;
-		}
-	}
+  .ticket_body {
+    grid-template-columns: 1fr 1fr;
+    order: 1;
+    h2 {
+      font-size: 10cqi;
+      text-align: center;
+    }
+    p.battle {
+      text-align: center;
+    }
+  }
 
-	.presented {
-		padding: 15px var(--padding);
-		&:last-child {
-			border-block: 1.5px solid var(--black);
-			border-left: none;
-			grid-column: 1 / -1;
-		}
-		img {
-			height: 50px;
-		}
-	}
+  .presented {
+    padding: 15px var(--padding);
+    &:last-child {
+      border-block: 1.5px solid var(--black);
+      border-left: none;
+      grid-column: 1 / -1;
+    }
+    img {
+      height: 50px;
+    }
+  }
 
-	.ticket_tear {
-		order: 3;
-		writing-mode: horizontal-tb;
-		text-orientation: mixed;
-		border-block: none;
-		padding: 15px 10px;
-		p {
-			font-size: 25px;
-		}
-	}
+  .ticket_tear {
+    order: 3;
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    border-block: none;
+    padding: 15px 10px;
+    p {
+      font-size: 25px;
+    }
+  }
 
-	.ticket_stub {
-		order: 2;
-		padding: 15px;
-	}
+  .ticket_stub {
+    order: 2;
+    padding: 15px;
+  }
 
-	.barcode {
-		width: 100%;
-		max-width: 200px;
-		height: 40px;
-		--deg: 90deg;
-	}
+  .barcode {
+    width: 100%;
+    max-width: 200px;
+    height: 40px;
+    --deg: 90deg;
+  }
 }

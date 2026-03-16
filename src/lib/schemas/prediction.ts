@@ -6,15 +6,13 @@ const VALID_PLAYER_IDS = players.map((p) => p.id);
 
 export const gameIdSchema = z.enum(ALL_GAME_IDS);
 
-export const playerIdSchema = z
-	.string()
-	.refine((id) => VALID_PLAYER_IDS.includes(id), {
-		message: "Invalid player ID",
-	});
+export const playerIdSchema = z.string().refine((id) => VALID_PLAYER_IDS.includes(id), {
+  message: "Invalid player ID",
+});
 
 export const predictionSchema = z.object({
-	gameId: gameIdSchema,
-	predictedWinnerId: playerIdSchema,
+  gameId: gameIdSchema,
+  predictedWinnerId: playerIdSchema,
 });
 
 export const predictionsArraySchema = z.array(predictionSchema);

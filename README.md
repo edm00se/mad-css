@@ -25,7 +25,7 @@ The website behind [madcss.com](https://madcss.com) — The Ultimate CSS Tournam
 - **OG Images:** workers-og
 - **Monitoring:** Sentry
 - **Hosting:** Cloudflare Workers
-- **Tooling:** Biome, Vitest, pnpm
+- **Tooling:** Vitest, pnpm
 
 ## Local Setup
 
