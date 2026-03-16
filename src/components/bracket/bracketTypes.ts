@@ -1,20 +1,17 @@
 export interface NodeContext {
-	hasResults: boolean;
-	tournamentResults: Record<string, string>;
-	predictions: Record<string, string>;
-	pickablePlayersCache: Record<
-		string,
-		[string | undefined, string | undefined]
-	>;
-	isInteractive: boolean;
-	isPickingEnabled: boolean;
-	showPicks: boolean;
-	onPick?: (gameId: string, playerId: string) => void;
+  hasResults: boolean;
+  tournamentResults: Record<string, string>;
+  predictions: Record<string, string>;
+  pickablePlayersCache: Record<string, [string | undefined, string | undefined]>;
+  isInteractive: boolean;
+  isPickingEnabled: boolean;
+  showPicks: boolean;
+  onPick?: (gameId: string, playerId: string) => void;
 }
 
 export interface RoundGeneratorOptions {
-	side: "left" | "right";
-	ctx: NodeContext;
+  side: "left" | "right";
+  ctx: NodeContext;
 }
 
 // Layout constants

@@ -765,7 +765,7 @@ function BracketContent({
     const handleResize = () => {
       calculateHeight();
       if (rfInstanceRef.current) {
-        rfInstanceRef.current.fitView({ padding: FIT_VIEW_PADDING });
+        void rfInstanceRef.current.fitView({ padding: FIT_VIEW_PADDING });
       }
     };
     window.addEventListener("resize", handleResize);
@@ -775,7 +775,7 @@ function BracketContent({
   useEffect(() => {
     if (containerHeight && rfInstanceRef.current) {
       requestAnimationFrame(() => {
-        rfInstanceRef.current?.fitView({ padding: FIT_VIEW_PADDING });
+        void rfInstanceRef.current?.fitView({ padding: FIT_VIEW_PADDING });
       });
     }
   }, [containerHeight]);

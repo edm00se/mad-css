@@ -1,24 +1,22 @@
 {
-	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "mad-css",
-	"account_id": "3ebe60b8bb090efeda7702aff60769bb",
-	"compatibility_date": "2026-01-07",
-	"routes": [
-		{
-			"pattern": "madcss.com/*",
-			"zone_name": "madcss.com"
-		},
-		{
-			"pattern": "www.madcss.com/*",
-			"zone_name": "madcss.com"
-		}
-	],
-	"preview_urls": true,
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
-	"main": "src/server.ts",
-	"observability": {
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mad-css",
+  "account_id": "3ebe60b8bb090efeda7702aff60769bb",
+  "compatibility_date": "2026-01-07",
+  "routes": [
+    {
+      "pattern": "madcss.com/*",
+      "zone_name": "madcss.com",
+    },
+    {
+      "pattern": "www.madcss.com/*",
+      "zone_name": "madcss.com",
+    },
+  ],
+  "preview_urls": true,
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "src/server.ts",
+  "observability": {
     "traces": {
       "enabled": true,
       // Must match the destination name in the dashboard
@@ -30,30 +28,30 @@
       "destinations": ["sentry-logs"],
     },
   },
-	"kv_namespaces": [
-		{
-			"binding": "KV",
-			// Create your own KV namespace: npx wrangler kv namespace create mad-css-kv
-			"id": "b7e087b6ed6a4e048c2522476297ed7f"
-		}
-	],
-	"images": {
-		"binding": "IMAGES"
-	},
-	"d1_databases": [
-		{
-			"binding": "DB",
-			// Create your own D1 database: npx wrangler d1 create mad-css-db
-			"database_name": "mad-css-db",
-			"database_id": "f44ee260-2c14-49fd-9e98-b27d7add0ef2",
-			// Create staging DB: npx wrangler d1 create mad-css-db-staging
-			"preview_database_id": "c61911d8-dd63-425a-aed6-1276334202eb",
-			"migrations_dir": "drizzle"
-		},
-		{
-			"binding": "mad_css_db_staging",
-			"database_name": "mad-css-db-staging",
-			"database_id": "c61911d8-dd63-425a-aed6-1276334202eb"
-		}
-	]
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      // Create your own KV namespace: npx wrangler kv namespace create mad-css-kv
+      "id": "b7e087b6ed6a4e048c2522476297ed7f",
+    },
+  ],
+  "images": {
+    "binding": "IMAGES",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      // Create your own D1 database: npx wrangler d1 create mad-css-db
+      "database_name": "mad-css-db",
+      "database_id": "f44ee260-2c14-49fd-9e98-b27d7add0ef2",
+      // Create staging DB: npx wrangler d1 create mad-css-db-staging
+      "preview_database_id": "c61911d8-dd63-425a-aed6-1276334202eb",
+      "migrations_dir": "drizzle",
+    },
+    {
+      "binding": "mad_css_db_staging",
+      "database_name": "mad-css-db-staging",
+      "database_id": "c61911d8-dd63-425a-aed6-1276334202eb",
+    },
+  ],
 }

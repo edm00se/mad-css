@@ -1,591 +1,579 @@
 @property --ring-color {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: #f97316;
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f97316;
 }
 
 @property --inner-ring-color {
-	syntax: "<color>";
-	inherits: true;
-	initial-value: #facc15;
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #facc15;
 }
 
 /* Player Node Base Styles */
 .player-node {
-	display: flex;
-	width: 320px;
-	align-items: center;
-	gap: 0;
-	position: relative;
+  display: flex;
+  width: 320px;
+  align-items: center;
+  gap: 0;
+  position: relative;
 
-	/* Finalist and championship nodes - vertically stacked layout */
-	[data-id*="finalist"] &,
-	[data-id="championship"] & {
-		flex-direction: column !important;
-		justify-content: center;
-		align-items: center;
-		width: 176px;
-		.player-name {
-			white-space: nowrap;
-		}
-		.player-info {
-			text-align: center;
-			margin-left: 0;
-			margin-right: 0;
-			padding: 30px 16px 10px 16px;
-			flex-direction: column;
-		}
-		.player-photo-ring {
-			margin-left: 0;
-			margin-right: 0;
-			margin-bottom: -30px;
-		}
-	}
+  /* Finalist and championship nodes - vertically stacked layout */
+  [data-id*="finalist"] &,
+  [data-id="championship"] & {
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    width: 176px;
+    .player-name {
+      white-space: nowrap;
+    }
+    .player-info {
+      text-align: center;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 30px 16px 10px 16px;
+      flex-direction: column;
+    }
+    .player-photo-ring {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: -30px;
+    }
+  }
 }
 
 /* Smaller avatars for non-round1 matches */
 .player-node:not(.player-node--round1) .player-photo-ring {
-	--photo-size: 50px;
+  --photo-size: 50px;
 }
 
 .player-node:not(.player-node--round1) .player-photo {
-	--brain-size: 13px;
-	--circle-size: 29px;
+  --brain-size: 13px;
+  --circle-size: 29px;
 }
 
 /* Keep large avatars for finalists and champion */
 [data-id*="finalist"] .player-node .player-photo-ring {
-	--photo-size: 75px;
+  --photo-size: 75px;
 }
 
 [data-id*="finalist"] .player-node .player-photo {
-	--brain-size: 18px;
-	--circle-size: 40px;
+  --brain-size: 18px;
+  --circle-size: 40px;
 }
 
 [data-id="championship"] .player-node .player-photo-ring {
-	--photo-size: 95px;
+  --photo-size: 95px;
 }
 
 [data-id="championship"] .player-node .player-photo {
-	--brain-size: 22px;
-	--circle-size: 50px;
+  --brain-size: 22px;
+  --circle-size: 50px;
 }
 
 .player-photo-ring {
-	--ring-color: var(--orange);
-	--inner-ring-color: var(--yellow);
-	--ring-thickness: 2px;
-	--gold-ring-thickness: 3px;
-	--photo-size: 85px;
-	position: relative;
-	z-index: 2;
-	margin-left: -20px;
-	width: calc(
-		var(--photo-size) +
-		var(--ring-thickness) *
-		2 +
-		var(--gold-ring-thickness) *
-		2
-	);
-	height: calc(
-		var(--photo-size) +
-		var(--ring-thickness) *
-		2 +
-		var(--gold-ring-thickness) *
-		2
-	);
-	border-radius: 50%;
-	background:
-		linear-gradient(var(--ring-color), var(--ring-color)) padding-box,
-		linear-gradient(var(--ring-color), var(--ring-color)) border-box;
-	padding: var(--ring-thickness);
-	flex-shrink: 0;
-	transition:
-		box-shadow 0.3s ease,
-		transform 0.3s ease,
-		--ring-color 0.3s ease,
-		--inner-ring-color 0.3s ease;
+  --ring-color: var(--orange);
+  --inner-ring-color: var(--yellow);
+  --ring-thickness: 2px;
+  --gold-ring-thickness: 3px;
+  --photo-size: 85px;
+  position: relative;
+  z-index: 2;
+  margin-left: -20px;
+  width: calc(var(--photo-size) + var(--ring-thickness) * 2 + var(--gold-ring-thickness) * 2);
+  height: calc(var(--photo-size) + var(--ring-thickness) * 2 + var(--gold-ring-thickness) * 2);
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--ring-color), var(--ring-color)) padding-box,
+    linear-gradient(var(--ring-color), var(--ring-color)) border-box;
+  padding: var(--ring-thickness);
+  flex-shrink: 0;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    --ring-color 0.3s ease,
+    --inner-ring-color 0.3s ease;
 }
 
 .player-photo-ring::before {
-	content: "";
-	position: absolute;
-	inset: var(--ring-thickness);
-	border-radius: 50%;
-	background: var(--inner-ring-color);
-	padding: var(--gold-ring-thickness);
-	transition: background 0.3s ease;
+  content: "";
+  position: absolute;
+  inset: var(--ring-thickness);
+  border-radius: 50%;
+  background: var(--inner-ring-color);
+  padding: var(--gold-ring-thickness);
+  transition: background 0.3s ease;
 }
 
 .player-photo {
-	--brain-size: 20px;
-	position: relative;
-	z-index: 1;
-	width: 100%;
-	height: calc(100% + var(--brain-size));
-	object-fit: cover;
-	transform: translateY(calc(var(--brain-size) * -1));
-	transform-origin: center bottom;
-	--circle-size: 45px;
-	/* Top 50% visible */
-	mask-image:
-		linear-gradient(to bottom, black 0%, black 50%, transparent 50%),
-		/* Circle cutout */
-		radial-gradient(
-			circle at center center,
-			black 0%,
-			black var(--circle-size),
-			transparent var(--circle-size),
-			transparent 100%
-		);
-	mask-repeat: no-repeat, no-repeat;
-	mask-position:
-		center center,
-		center calc(var(--brain-size) / 2 + 0.5px);
-	transition:
-		filter 0.3s ease,
-		transform 0.3s ease;
+  --brain-size: 20px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: calc(100% + var(--brain-size));
+  object-fit: cover;
+  transform: translateY(calc(var(--brain-size) * -1));
+  transform-origin: center bottom;
+  --circle-size: 45px;
+  /* Top 50% visible */
+  mask-image:
+    linear-gradient(to bottom, black 0%, black 50%, transparent 50%),
+    /* Circle cutout */
+    radial-gradient(
+        circle at center center,
+        black 0%,
+        black var(--circle-size),
+        transparent var(--circle-size),
+        transparent 100%
+      );
+  mask-repeat: no-repeat, no-repeat;
+  mask-position:
+    center center,
+    center calc(var(--brain-size) / 2 + 0.5px);
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
 }
 
 /* Grey circle placeholder for empty slots */
 .player-photo-placeholder {
-	position: relative;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background: var(--orange);
-	&:after {
-		content: "";
-		transform: translateY(-7px);
-		/* scale: 1.2; */
-		border-radius: 0 0 120% 120%;
-		position: absolute;
-		inset: 0 0 -7px 0;
-		background: var(--placeholder-url);
-		background-size: 500%;
-		background-position: var(--x) var(--y);
-		background-repeat: no-repeat;
-	}
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--orange);
+  &:after {
+    content: "";
+    transform: translateY(-7px);
+    /* scale: 1.2; */
+    border-radius: 0 0 120% 120%;
+    position: absolute;
+    inset: 0 0 -7px 0;
+    background: var(--placeholder-url);
+    background-size: 500%;
+    background-position: var(--x) var(--y);
+    background-repeat: no-repeat;
+  }
 }
 
 .player-info {
-	background: var(--beige);
-	padding: 10px 16px 10px 24px;
-	margin-left: -16px;
-	position: relative;
-	z-index: 1;
-	flex: 1;
-	min-width: 200px;
-	border: 2px solid var(--black);
-	&:has(a.player-youtube-link) {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 5px;
-	}
+  background: var(--beige);
+  padding: 10px 16px 10px 24px;
+  margin-left: -16px;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 200px;
+  border: 2px solid var(--black);
+  &:has(a.player-youtube-link) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+  }
 }
 
 .player-name {
-	font-family: var(--font-sans), "Impact", sans-serif;
-	font-size: 1.1rem;
-	color: var(--black);
-	margin: 0;
-	font-weight: 800;
-	text-transform: uppercase;
-	letter-spacing: 0.02em;
-	text-box: trim-both cap alphabetic;
+  font-family: var(--font-sans), "Impact", sans-serif;
+  font-size: 1.1rem;
+  color: var(--black);
+  margin: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-box: trim-both cap alphabetic;
 }
 
 .player-byline {
-	font-size: 0.75rem;
-	color: var(--black);
-	margin: 4px 0 0;
-	opacity: 0.7;
-	white-space: nowrap;
+  font-size: 0.75rem;
+  color: var(--black);
+  margin: 4px 0 0;
+  opacity: 0.7;
+  white-space: nowrap;
 }
 
 /* YouTube / air date links */
 .player-youtube-link {
-	display: inline-flex;
-	align-items: center;
-	gap: 3px;
-	color: black;
-	text-decoration: none;
-	font-family: var(--font-sans), sans-serif;
-	font-size: 12px;
-	transition: opacity 0.15s;
-	path {
-		color: red;
-	}
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: black;
+  text-decoration: none;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  transition: opacity 0.15s;
+  path {
+    color: red;
+  }
 }
 
 /* Winner State */
 .player-node--winner .player-photo {
-	filter: grayscale(0%);
+  filter: grayscale(0%);
 }
 
 /* Eliminated State */
 .player-node--eliminated .player-photo-ring {
-	--ring-color: #666;
-	--inner-ring-color: #888;
+  --ring-color: #666;
+  --inner-ring-color: #888;
 }
 
 .player-node--eliminated .player-photo {
-	border-color: #888;
+  border-color: #888;
 }
 
 /* Loser State - shows actual tournament losers with gray styling */
 .player-node--loser .player-photo-ring {
-	--ring-color: #666;
-	--inner-ring-color: #888;
+  --ring-color: #666;
+  --inner-ring-color: #888;
 }
 
 .player-node--loser .player-photo {
-	filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 /* Empty Slot State - grey version of player node */
 .player-node--empty .player-photo-ring {
-	--ring-color: var(--yellow);
-	--inner-ring-color: #aaa;
-	img {
-		height: 100%;
-		transform: none;
-		border-radius: 50%;
-	}
+  --ring-color: var(--yellow);
+  --inner-ring-color: #aaa;
+  img {
+    height: 100%;
+    transform: none;
+    border-radius: 50%;
+  }
 }
 
 .player-node--empty .player-info {
-	text-align: center;
+  text-align: center;
 }
 
 /* Right Side - flip layout to have avatar on right */
 .player-node--right {
-	flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .player-node--right .player-photo-ring {
-	margin-left: 0;
-	margin-right: -20px;
+  margin-left: 0;
+  margin-right: -20px;
 }
 
 .player-node--right .player-info {
-	margin-left: 0;
-	margin-right: -16px;
-	padding: 10px 24px 10px 16px;
-	text-align: right;
+  margin-left: 0;
+  margin-right: -16px;
+  padding: 10px 24px 10px 16px;
+  text-align: right;
 }
 
 .player-node--empty.player-node--right .player-info {
-	text-align: center;
+  text-align: center;
 }
 
 /* Pickable State - hoverable/clickable for making predictions */
 .player-node--pickable {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .player-node--pickable:hover .player-photo-ring {
-	transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .player-node--pickable:focus {
-	outline: none;
+  outline: none;
 }
 
 .player-node--pickable:focus-visible .player-photo-ring {
-	box-shadow:
-		0 0 0 3px var(--yellow),
-		0 0 0 5px var(--black);
+  box-shadow:
+    0 0 0 3px var(--yellow),
+    0 0 0 5px var(--black);
 }
 
 /* Selected State - user has picked this player (checkmark badge) */
 .player-node--selected .player-photo {
-	filter: grayscale(0%);
+  filter: grayscale(0%);
 }
 
 .player-node--selected .player-photo-ring {
-	--ring-color: var(--yellow);
+  --ring-color: var(--yellow);
 }
 
 /* Unpicked State - opponent of a picked player (gray ring) */
 .player-node--unpicked .player-photo-ring {
-	--ring-color: #666;
-	--inner-ring-color: #888;
+  --ring-color: #666;
+  --inner-ring-color: #888;
 }
 
 .player-node--unpicked .player-photo {
-	filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 /* Checkmark entrance animation */
 @keyframes checkmark-pop {
-	0% {
-		transform: scale(0);
-		opacity: 0;
-	}
-	60% {
-		transform: scale(1.2);
-	}
-	100% {
-		transform: scale(1);
-		opacity: 1;
-	}
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .player-node__badge {
-	position: absolute;
-	top: -2px;
-	right: -2px;
-	width: 22px;
-	height: 22px;
-	border: 2px solid var(--black);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	z-index: 10;
-	animation: checkmark-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: checkmark-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .player-node__badge--pending {
-	background: var(--yellow);
-	color: var(--black);
+  background: var(--yellow);
+  color: var(--black);
 }
 
 .player-node__badge--correct {
-	--badge-correct: #22c55e;
-	background: var(--badge-correct);
-	color: var(--white);
+  --badge-correct: #22c55e;
+  background: var(--badge-correct);
+  color: var(--white);
 }
 
 .player-node__badge--incorrect {
-	--badge-incorrect: #ef4444;
-	background: var(--badge-incorrect);
-	color: var(--white);
+  --badge-incorrect: #ef4444;
+  background: var(--badge-incorrect);
+  color: var(--white);
 }
 
 @keyframes marching-ants {
-	0% {
-		stroke-dashoffset: 0;
-	}
-	100% {
-		stroke-dashoffset: -100%;
-	}
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100%;
+  }
 }
 
 .bracket-edge {
-	stroke: #fff;
+  stroke: #fff;
 
-	&.track {
-		stroke-opacity: 0.2;
-		filter: none;
-	}
+  &.track {
+    stroke-opacity: 0.2;
+    filter: none;
+  }
 
-	&.path {
-		stroke-opacity: 1;
-	}
+  &.path {
+    stroke-opacity: 1;
+  }
 
-	/* Animated states: marching ants */
-	&[data-state="hover-pick"],
-	&[data-state="pickable"],
-	&[data-state="hover-competitor"] {
-		animation: marching-ants 4s linear infinite;
-	}
+  /* Animated states: marching ants */
+  &[data-state="hover-pick"],
+  &[data-state="pickable"],
+  &[data-state="hover-competitor"] {
+    animation: marching-ants 4s linear infinite;
+  }
 
-	/* Dashed stroke */
-	&[data-state="hover-pick"].path,
-	&[data-state="pickable"].path,
-	&[data-state="pending"].path {
-		stroke-dasharray: 6 9;
-	}
+  /* Dashed stroke */
+  &[data-state="hover-pick"].path,
+  &[data-state="pickable"].path,
+  &[data-state="pending"].path {
+    stroke-dasharray: 6 9;
+  }
 
-	&[data-state="hover-competitor"].path {
-		stroke-opacity: 0.2;
-	}
+  &[data-state="hover-competitor"].path {
+    stroke-opacity: 0.2;
+  }
 
-	&[data-state="loser"].path {
-		stroke-opacity: 0.5;
-	}
+  &[data-state="loser"].path {
+    stroke-opacity: 0.5;
+  }
 
-	&[data-state="pending"] {
-		filter: brightness(0.5) !important;
-	}
+  &[data-state="pending"] {
+    filter: brightness(0.5) !important;
+  }
 
-	&[data-state="winner"].track {
-		stroke: var(--orange);
-		stroke-opacity: 0.8;
-	}
+  &[data-state="winner"].track {
+    stroke: var(--orange);
+    stroke-opacity: 0.8;
+  }
 
-	&[data-state="hover-pick"] {
-		&.path {
-			stroke: var(--white);
-		}
-		&.track {
-			stroke: var(--orange);
-			stroke-opacity: 0.8;
-		}
-	}
+  &[data-state="hover-pick"] {
+    &.path {
+      stroke: var(--white);
+    }
+    &.track {
+      stroke: var(--orange);
+      stroke-opacity: 0.8;
+    }
+  }
 
-	/* Standings mode overrides */
-	.bracket-container--standings & {
-		&[data-state="pickable"],
-		&[data-state="hover-pick"],
-		&[data-state="hover-competitor"] {
-			animation: none;
-		}
+  /* Standings mode overrides */
+  .bracket-container--standings & {
+    &[data-state="pickable"],
+    &[data-state="hover-pick"],
+    &[data-state="hover-competitor"] {
+      animation: none;
+    }
 
-		&[data-state="pending"] {
-			filter: none !important;
-		}
-	}
+    &[data-state="pending"] {
+      filter: none !important;
+    }
+  }
 }
 
 .bracket-container--standings .react-flow__node {
-	filter: none !important;
+  filter: none !important;
 }
 
 /* Bracket Toggle */
 .bracket-toggle {
-	display: flex;
-	justify-content: center;
-	gap: 0;
-	margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 16px;
 
-	button {
-		font-family: var(--font-block);
-		font-size: 0.875rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		padding: 10px 24px;
-		border: 3px solid var(--black);
-		background: var(--beige);
-		color: var(--black);
-		cursor: pointer;
-		transition:
-			background 0.15s,
-			color 0.15s,
-			box-shadow 0.15s,
-			transform 0.1s;
+  button {
+    font-family: var(--font-block);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 24px;
+    border: 3px solid var(--black);
+    background: var(--beige);
+    color: var(--black);
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s,
+      box-shadow 0.15s,
+      transform 0.1s;
 
-		&:first-child {
-			border-right: none;
-		}
+    &:first-child {
+      border-right: none;
+    }
 
-		&.active {
-			background: var(--yellow);
-			color: var(--black);
-			box-shadow: 4px 4px 0 var(--black);
-			cursor: default;
-		}
+    &.active {
+      background: var(--yellow);
+      color: var(--black);
+      box-shadow: 4px 4px 0 var(--black);
+      cursor: default;
+    }
 
-		&:not(.active):hover {
-			background: var(--beige);
-		}
+    &:not(.active):hover {
+      background: var(--beige);
+    }
 
-		&:not(.active):active {
-			transform: translate(2px, 2px);
-		}
-		&:has(.bracket-toggle-avatar) {
-			display: flex;
-			align-items: center;
-			gap: 2px;
-		}
-	}
+    &:not(.active):active {
+      transform: translate(2px, 2px);
+    }
+    &:has(.bracket-toggle-avatar) {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+  }
 }
 
 .bracket-toggle-avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	border: 2px solid var(--orange);
-	vertical-align: middle;
-	margin-right: 6px;
-	margin-top: -2px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+  vertical-align: middle;
+  margin-right: 6px;
+  margin-top: -2px;
 }
 
 .bracket-toolbar {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 12px;
-	flex-wrap: wrap;
-	margin-bottom: 16px;
-	max-width: 600px;
-	margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  max-width: 600px;
+  margin-inline: auto;
 }
 
 .bracket-toolbar-actions {
-	display: flex;
-	gap: 10px;
-	flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .bracket-controls.react-flow__controls {
-	top: 0;
-	right: 0;
-	bottom: auto;
-	left: auto;
-	box-shadow: none;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: auto;
+  box-shadow: none;
 }
 
 .bracket-controls .react-flow__controls-button {
-	background: var(--black);
-	border: 2px solid var(--yellow) !important;
-	border-radius: 0;
-	color: var(--yellow);
-	width: 32px;
-	height: 32px;
+  background: var(--black);
+  border: 2px solid var(--yellow) !important;
+  border-radius: 0;
+  color: var(--yellow);
+  width: 32px;
+  height: 32px;
 
-	&:hover {
-		background: var(--yellow);
-	}
+  &:hover {
+    background: var(--yellow);
+  }
 
-	svg {
-		fill: var(--yellow);
-		max-width: 14px;
-		max-height: 14px;
-	}
+  svg {
+    fill: var(--yellow);
+    max-width: 14px;
+    max-height: 14px;
+  }
 
-	&:hover svg {
-		fill: var(--black);
-	}
+  &:hover svg {
+    fill: var(--black);
+  }
 }
 
 .bracket-toggle-badge {
-	font-size: 0.625rem;
-	padding: 2px 6px;
-	margin-left: 6px;
-	border: 2px solid var(--black);
-	background: var(--white);
-	color: var(--black);
-	vertical-align: middle;
-	letter-spacing: 0.03em;
+  font-size: 0.625rem;
+  padding: 2px 6px;
+  margin-left: 6px;
+  border: 2px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  vertical-align: middle;
+  letter-spacing: 0.03em;
 }
 
 /* React Flow Container */
 .bracket-container {
-	width: 100%;
-	min-height: 400px; /* Fallback minimum before JS calculates actual height */
-	height: 1200px; /* Default that gets overridden by JS */
+  width: 100%;
+  min-height: 400px; /* Fallback minimum before JS calculates actual height */
+  height: 1200px; /* Default that gets overridden by JS */
 }
 
 .bracket-container .react-flow__node {
-	background: transparent;
-	border: none;
-	padding: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 /* Edge/Connector Styles - Force visibility */
 .bracket-container .react-flow__edges {
-	z-index: 5;
-	pointer-events: none;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .bracket-container .react-flow__nodes {
-	z-index: 10;
+  z-index: 10;
 }
 
 /* .bracket-container path:not(a path) {
@@ -593,22 +581,22 @@
 } */
 
 .bracket-handle {
-	opacity: 0; /* Handles. Hidden, only used for debugging. */
-	width: 10px;
-	height: 10px;
-	background: red;
-	border: 2px solid black;
-	border-radius: 50%;
-	z-index: 100;
+  opacity: 0; /* Handles. Hidden, only used for debugging. */
+  width: 10px;
+  height: 10px;
+  background: red;
+  border: 2px solid black;
+  border-radius: 50%;
+  z-index: 100;
 }
 
 /* Custom bracket controls styling */
 
 .bracket-container .react-flow__attribution {
-	background: var(--black);
-	padding: 4px 8px;
+  background: var(--black);
+  padding: 4px 8px;
 }
 
 .bracket-container .react-flow__attribution a {
-	color: var(--yellow);
+  color: var(--yellow);
 }
