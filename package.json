@@ -3,21 +3,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "NODE_OPTIONS='--import ./instrument.server.mjs' vite dev --host",
-    "build": "vite build && cp instrument.server.mjs dist/server",
-    "test": "vitest run",
+    "dev": "NODE_OPTIONS='--import ./instrument.server.mjs' vp dev --host",
+    "build": "vp build && cp instrument.server.mjs dist/server",
+    "test": "vp test run",
     "format": "biome format",
     "lint": "biome lint",
     "check": "biome check",
     "deploy": "wrangler deploy -c dist/server/wrangler.json",
-    "preview": "npm run build && vite preview",
+    "preview": "npm run build && vp preview",
     "cf-typegen": "wrangler types",
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply mad-css-db --local",
     "db:migrate:prod": "wrangler d1 migrations apply mad-css-db --remote",
     "db:migrate:staging": "wrangler d1 migrations apply mad-css-db-staging --remote",
     "db:studio": "drizzle-kit studio",
-    "db:setup": "npm run db:generate && npm run db:migrate:local"
+    "db:setup": "npm run db:generate && npm run db:migrate:local",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.23.1",
@@ -38,7 +39,6 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18",
-    "vite-tsconfig-paths": "^6.1.0",
     "workers-og": "^0.0.27",
     "zod": "^4.3.6"
   },
@@ -56,9 +56,11 @@
     "drizzle-kit": "^0.31.9",
     "jsdom": "^28.0.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.18",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:",
     "web-vitals": "^5.1.0",
     "wrangler": "^4.63.0"
-  }
+  },
+  "packageManager": "pnpm@10.32.1"
 }
