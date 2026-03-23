@@ -12,7 +12,7 @@ export const GAME_SCHEDULE = {
   "right-r1": "2026-03-13T12:00:00Z",
   qf: "2026-03-20T12:00:00Z",
   sf: "2026-03-27T12:00:00Z",
-  final: "2026-04-03T12:00:00Z",
+  final: "2026-04-02T12:00:00Z",
 } as const;
 
 export type ScheduleKey = keyof typeof GAME_SCHEDULE;
