@@ -32,8 +32,9 @@ export function getAirDateForGame(gameId: string): string {
 }
 
 export const GAME_LINKS: Record<string, string> = {
-  // YouTube video IDs keyed by game ID
   "r1-0": "nuxSFTjXrhI",
+  "r1-4": "QaS5GFJkuzc",
+  "qf-0": "YZZbc57DyQI",
 };
 
 export const YOUTUBE_CHANNEL = "https://www.youtube.com/@syntaxfm";
@@ -379,24 +380,28 @@ export const bracket: Bracket = {
       date: GAME_SCHEDULE.qf,
       player1: kyleCook,
       player2: juliaMiocene,
+      winner: kyleCook,
     },
     {
       id: "qf-1",
       date: GAME_SCHEDULE.qf,
       player1: chrisCoyier,
       player2: scottTolinski,
+      winner: scottTolinski,
     },
     {
       id: "qf-2",
       date: GAME_SCHEDULE.qf,
       player1: kevinPowell,
       player2: joshComeau,
+      winner: joshComeau,
     },
     {
       id: "qf-3",
       date: GAME_SCHEDULE.qf,
       player1: wesBos,
       player2: adamArgyle,
+      winner: wesBos,
     },
   ],
 
@@ -406,8 +411,8 @@ export const bracket: Bracket = {
   // Game 0: LEFT side | Game 1: RIGHT side
 
   semis: [
-    { id: "sf-0", date: GAME_SCHEDULE.sf },
-    { id: "sf-1", date: GAME_SCHEDULE.sf },
+    { id: "sf-0", date: GAME_SCHEDULE.sf, player1: kyleCook, player2: scottTolinski },
+    { id: "sf-1", date: GAME_SCHEDULE.sf, player1: joshComeau, player2: wesBos },
   ],
 
   // ===========================================================================
