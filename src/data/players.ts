@@ -411,15 +411,27 @@ export const bracket: Bracket = {
   // Game 0: LEFT side | Game 1: RIGHT side
 
   semis: [
-    { id: "sf-0", date: GAME_SCHEDULE.sf, player1: kyleCook, player2: scottTolinski },
-    { id: "sf-1", date: GAME_SCHEDULE.sf, player1: joshComeau, player2: wesBos },
+    {
+      id: "sf-0",
+      date: GAME_SCHEDULE.sf,
+      player1: kyleCook,
+      player2: scottTolinski,
+      winner: scottTolinski,
+    },
+    {
+      id: "sf-1",
+      date: GAME_SCHEDULE.sf,
+      player1: joshComeau,
+      player2: wesBos,
+      winner: joshComeau,
+    },
   ],
 
   // ===========================================================================
   // FINALS - 1 game, 2 players (CHAMPIONSHIP)
   // ===========================================================================
 
-  finals: [{ id: "final", date: GAME_SCHEDULE.final }],
+  finals: [{ id: "final", date: GAME_SCHEDULE.final, player1: scottTolinski, player2: joshComeau }],
 };
 
 export const emptyBracket: Bracket = {
