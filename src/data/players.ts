@@ -431,7 +431,15 @@ export const bracket: Bracket = {
   // FINALS - 1 game, 2 players (CHAMPIONSHIP)
   // ===========================================================================
 
-  finals: [{ id: "final", date: GAME_SCHEDULE.final, player1: scottTolinski, player2: joshComeau }],
+  finals: [
+    {
+      id: "final",
+      date: GAME_SCHEDULE.final,
+      player1: scottTolinski,
+      player2: joshComeau,
+      winner: joshComeau,
+    },
+  ],
 };
 
 export const emptyBracket: Bracket = {
