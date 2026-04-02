@@ -35,6 +35,8 @@ export const GAME_LINKS: Record<string, string> = {
   "r1-0": "nuxSFTjXrhI",
   "r1-4": "QaS5GFJkuzc",
   "qf-0": "YZZbc57DyQI",
+  "sf-0": "RNp1yMt9pBA",
+  final: "7rOUgT7HK5k",
 };
 
 export const YOUTUBE_CHANNEL = "https://www.youtube.com/@syntaxfm";
