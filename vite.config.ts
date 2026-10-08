@@ -1,20 +1,24 @@
-import { defineConfig } from 'vite'
-import tsConfigPaths from 'vite-tsconfig-paths'
-import { cloudflare } from '@cloudflare/vite-plugin'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import viteReact from '@vitejs/plugin-react'
-import { sentryTanstackStart } from '@sentry/tanstackstart-react'
+import { defineConfig } from "vite-plus";
+import { cloudflare } from "@cloudflare/vite-plugin";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { sentryTanstackStart } from "@sentry/tanstackstart-react";
 
 export default defineConfig({
+  staged: {
+    "*": "vp check --fix",
+  },
+  fmt: {},
+  lint: { options: { typeAware: true, typeCheck: true } },
   server: {
     port: 3000,
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
-    tsConfigPaths({
-      projects: ['./tsconfig.json'],
-    }),
     cloudflare({
-      viteEnvironment: { name: 'ssr' },
+      viteEnvironment: { name: "ssr" },
     }),
     tanstackStart(),
     viteReact(),
@@ -24,4 +28,4 @@ export default defineConfig({
       authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   ],
-})
+});

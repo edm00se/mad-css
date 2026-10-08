@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "plugins": ["typescript", "oxc"],
+  "rules": {
+    "typescript/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^(error|err|e|_)$"
+      }
+    ]
+  },
+  "options": {
+    "typeCheck": {
+      "noUnusedLocals": false
+    }
+  },
+  "ignorePatterns": ["**/src/routeTree.gen.ts", "**/src/styles.css"]
+}

@@ -1,4 +1,5 @@
 import { env } from "cloudflare:workers";
+import * as Sentry from "@sentry/tanstackstart-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { createDb } from "@/db";
 import { isAdminUser } from "@/lib/admin";
@@ -7,52 +8,55 @@ import { recalculateAllUserScores } from "@/lib/scoring";
 import { SIMULATION_STAGES, type SimulationStage } from "@/lib/simulation";
 
 export const Route = createFileRoute("/api/leaderboard/calculate")({
-	server: {
-		handlers: {
-			POST: async ({ request }) => {
-				const authResult = await requireAuth(request, env.DB);
-				if (!authResult.success) return authResult.response;
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        const authResult = await requireAuth(request, env.DB);
+        if (!authResult.success) return authResult.response;
 
-				const db = createDb(env.DB);
-				const userId = authResult.user.id;
+        const db = createDb(env.DB);
+        const userId = authResult.user.id;
 
-				const isAdmin = await isAdminUser(db, userId);
-				if (!isAdmin) {
-					return new Response(JSON.stringify({ error: "Forbidden" }), {
-						status: 403,
-						headers: { "Content-Type": "application/json" },
-					});
-				}
+        const isAdmin = await isAdminUser(db, userId);
+        if (!isAdmin) {
+          return new Response(JSON.stringify({ error: "Forbidden" }), {
+            status: 403,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
 
-				let simulationStage: SimulationStage | undefined;
-				try {
-					const body = (await request.json()) as {
-						simulationStage?: string;
-					};
-					if (
-						body.simulationStage &&
-						SIMULATION_STAGES.includes(body.simulationStage as SimulationStage)
-					) {
-						simulationStage = body.simulationStage as SimulationStage;
-					}
-				} catch {
-					// No body or invalid JSON — use real results
-				}
+        let simulationStage: SimulationStage | undefined;
+        try {
+          const body = (await request.json()) as {
+            simulationStage?: string;
+          };
+          if (
+            body.simulationStage &&
+            SIMULATION_STAGES.includes(body.simulationStage as SimulationStage)
+          ) {
+            simulationStage = body.simulationStage as SimulationStage;
+          }
+        } catch (error) {
+          console.log("Error recalculating scores", error);
+          Sentry.captureException(error);
+          console.error(error);
+          // No body or invalid JSON — use real results
+        }
 
-				const result = await recalculateAllUserScores(env.DB, simulationStage);
+        const result = await recalculateAllUserScores(env.DB, simulationStage);
 
-				return new Response(
-					JSON.stringify({
-						success: true,
-						updated: result.updated,
-						simulated: !!simulationStage,
-					}),
-					{
-						status: 200,
-						headers: { "Content-Type": "application/json" },
-					},
-				);
-			},
-		},
-	},
+        return new Response(
+          JSON.stringify({
+            success: true,
+            updated: result.updated,
+            simulated: !!simulationStage,
+          }),
+          {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      },
+    },
+  },
 });
